@@ -2,30 +2,30 @@ import UIKit
 
 open class Layer: CAShapeLayer {
     let layout: Layout
-    private var layers: [SkeletonBoneLayer] = []
+    private var layers: [BoneLayer] = []
 
-    init(layout: SkeletonLayout) {
+    public init(layout: Layout) {
         self.layout = layout
         super.init()
         setup()
     }
 
-    override init(layer: Any) {
-        layout = SkeletonLayout()
+    override public init(layer: Any) {
+        layout = Layout()
         super.init(layer: layer)
         setup()
     }
 
-    private func setup() {
+    open func setup() {
         for key in self.layout.keys {
-            let layer = SkeletonBoneLayer(bone: key.bone)
+            let layer = BoneLayer(bone: key.bone)
             layers.append(layer)
             self.addSublayer(layer)
             layer.frame = layout[key]
         }
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

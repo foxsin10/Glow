@@ -1,64 +1,39 @@
 import UIKit
 
-protocol LayoutKey {
-    var keys: [SkeletonLayoutKey] { get }
-    var hash: Int { get }
-    var bone: SkeletonBone { get }
-}
-
-extension LayoutKey where Self: Hashable {
-    var hash: Int { self.hashValue }
-}
-
-extension LayoutKey where Self: CaseIterable {
-    var keys: [SkeletonLayoutKey] { Array(Self.allCases) }
-}
-
-class Layout {
+open class Layout {
     private var frames: [Int: CGRect] = [:]
 
-    var size: CGSize = .zero
-    var keys: [LayoutKey] = []
+    public var size: CGSize = .zero
+    public var keys: [LayoutKey] = []
 
     private var shadowWidth: CGFloat = 0
-    var superWidth: CGFloat {
+    public var superWidth: CGFloat {
         get {
             return shadowWidth
         }
         set {
             let oldValue = shadowWidth
             shadowWidth = newValue
-            if oldValue != shadowSuperWidth { calculate() }
+            if oldValue != shadowWidth { calculate() }
         }
     }
 
-    init() {
-        setup()
-    }
-
-    func setup() {
+    public init() {
         calculate()
     }
 
-    func calculate() {}
+    open func calculate() {}
 
-    func set(_ frame: CGRect, for key: SkeletonLayoutKey) {
+    public final func set(_ frame: CGRect, for key: LayoutKey) {
         frames[key.hash] = frame
     }
 
-    func get(_ key: SkeletonLayoutKey) -> CGRect {
+    public final func get(_ key: LayoutKey) -> CGRect {
          frames[key.hash] ?? CGRect.zero
     }
 
-    subscript(key: SkeletonLayoutKey) -> CGRect {
+    public subscript(key: LayoutKey) -> CGRect {
         get { get(key) }
         set { set(newValue, for: key) }
-    }
-}
-
-@_functionBuilder
-enum LayoutBuilder {
-    static func buildBlock(_ components: SkeletonLayout...) -> [SkeletonLayout] {
-        return components
     }
 }

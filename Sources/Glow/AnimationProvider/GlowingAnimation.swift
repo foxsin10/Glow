@@ -1,10 +1,11 @@
 import UIKit
 
-struct GlowingAnimation: AnimationProvider {
-    var key: AnimationType { .glow }
-    func prepareLayer(_ layer: CALayer) {}
+public struct GlowingAnimation: AnimationProvider {
+    public init() {}
 
-    func makeAnimation() -> CAAnimation {
+    public var key: AnimationType { .glow }
+    public func prepareLayer(_ layer: CALayer) {}
+    public func makeAnimation() -> CAAnimation {
         let opacityPointAnim = CABasicAnimation(keyPath: #keyPath(CAShapeLayer.backgroundColor))
         opacityPointAnim.fromValue = UIColor.white.withAlphaComponent(0.1).cgColor
         opacityPointAnim.toValue = UIColor.lightGray.cgColor

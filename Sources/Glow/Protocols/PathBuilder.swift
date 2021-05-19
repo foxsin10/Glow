@@ -1,5 +1,5 @@
-import UIKit.UIBezierPath
+import UIKit
 
 public protocol PathBuilder {
-    func buildPath() -> UIBezierPath
+    func path(of rect: CGRect) -> UIBezierPath
 }

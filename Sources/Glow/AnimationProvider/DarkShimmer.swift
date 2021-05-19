@@ -1,18 +1,20 @@
 import UIKit
 
-struct DarkShimmer: AnimationProvider {
-    var key: AnimationType { .shimmer }
-    func prepareLayer(_ layer: CALayer) {
+public struct DarkShimmer: AnimationProvider {
+    public init() {}
+
+    public var key: AnimationType { .shimmer }
+    public func prepareLayer(_ layer: CALayer) {
         guard let gradientLayer = layer as? CAGradientLayer else { return }
         gradientLayer.isHidden = false
         gradientLayer.colors = [
             UIColor.clear.cgColor,
-            R.color.white_a10().or(.white).cgColor,
+            UIColor.white.withAlphaComponent(0.1).cgColor,
             UIColor.clear.cgColor
         ]
     }
 
-    func makeAnimation() -> CAAnimation {
+    public func makeAnimation() -> CAAnimation {
         let startPointAnim = CABasicAnimation(keyPath: #keyPath(CAGradientLayer.startPoint))
         startPointAnim.fromValue = CGPoint(x: -1, y: -1)
         startPointAnim.toValue = CGPoint(x: 1, y: 1)

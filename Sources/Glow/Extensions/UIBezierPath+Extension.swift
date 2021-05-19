@@ -1,7 +1,7 @@
 import UIKit
 
 extension UIBezierPath {
-    convenience init(bounds: CGRect, corners: [RectCorner: CGFloat]) {
+    convenience public init(bounds: CGRect, corners: [RectCorner: CGFloat]) {
         self.init()
         let leftTopRadius = corners[.topLeft] ?? 0
         let rightTopRadius = corners[.topRight] ?? 0

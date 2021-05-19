@@ -20,7 +20,7 @@ open class Layer: CAShapeLayer {
         for key in self.layout.keys {
             let layer = BoneLayer(bone: key.bone)
             layers.append(layer)
-            self.addSublayer(layer)
+            addSublayer(layer)
             layer.frame = layout[key]
         }
     }

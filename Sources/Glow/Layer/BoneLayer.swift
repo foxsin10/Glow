@@ -13,6 +13,6 @@ public class BoneLayer: CAShapeLayer {
 
     override public func layoutSublayers() {
         super.layoutSublayers()
-        self.path = self.bone.path(of: bounds).cgPath
+        path = bone.path(of: bounds).cgPath
     }
 }

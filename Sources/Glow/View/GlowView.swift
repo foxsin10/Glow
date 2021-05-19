@@ -16,19 +16,26 @@ open class GlowView: UIView {
         }
     }
 
-    convenience public init(layout: Layout,
-                     direction: Direction = .vertical,
-                     offset: CGFloat = 0,
-                     animationProvider: AnimationProvider = DarkShimmer()) {
-        self.init(direction: direction, offset: offset, animationProvider: animationProvider, layouts: { layout })
+    convenience public init(
+        layout: Layout,
+        direction: Direction = .vertical,
+        offset: CGFloat = 0,
+        animationProvider: AnimationProvider = DarkShimmer()
+    ) {
+        self.init(direction: direction,
+                  offset: offset,
+                  animationProvider: animationProvider,
+                  layouts: { layout })
     }
 
     private let contentOffset: CGFloat
-    public init(direction: Direction = .vertical,
-         offset: CGFloat = 0,
-         animationProvider: AnimationProvider = DarkShimmer(),
-         @LayoutBuilder layouts: () -> [Layout]) {
-        self.contentOffset = offset
+    public init(
+        direction: Direction = .vertical,
+        offset: CGFloat = 0,
+        animationProvider: AnimationProvider = DarkShimmer(),
+        @LayoutBuilder layouts: () -> [Layout]
+    ) {
+        contentOffset = offset
         self.layouts = layouts()
         self.direction = direction
         self.animationProvider = animationProvider
@@ -41,7 +48,7 @@ open class GlowView: UIView {
     }
 
     open func setup() {
-        self.addSubview(bonesView)
+        addSubview(bonesView)
         bonesView.mask = bonesMask
         bonesView.layer.addSublayer(gradientLayer)
         gradientLayer.isHidden = true
@@ -98,7 +105,7 @@ open class GlowView: UIView {
         case .glow:
             animationProvider.prepareLayer(bonesView.layer)
             let animation = animationProvider.makeAnimation()
-            self.bonesView.layer.add(animation, forKey: "glow")
+            bonesView.layer.add(animation, forKey: "glow")
 
         case .shimmer:
             animationProvider.prepareLayer(gradientLayer)
